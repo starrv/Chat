@@ -1,0 +1,38 @@
+Hi All,
+
+Please Follow the Requirements Below for the chat project.
+The links to the chat_server and to the encryption code are included.
+Have a wonderful break and feel free to email me with any questions.
+
+MINIMUM REQUIREMENTS: (DUE WEDNESDSAY APRIL 23, 2014)
+link to starter code, link to onetimepad code
+Using ChatClientAppB Create an Applet that will have  the following:
+1 TextArea to display the group chat(not editable)
+2 Buttons for Connection(1 to Connect, 1 to Disconnect)
+2 Textfields (1 for users to enter the message, 1 to enter the ID for private message recipient) 
+3 Buttons (1 to Send, 1 to Send Private, 1 to Send Encrypted Private)
+Be sure the open() method creates a new Thread inside its body to handle incoming input from the server.   syntax:   new Thread(this).start();
+
+Using version 4 of the ChatServer class do the following:
+• Modify the handle method:
+       a) Determine what type of message is being sent (i.e. private, encrypted&private, public).  
+           One way is by sending the message from the applet with "private" at the beginning of the string and checking if the substring matches that value.
+       b) Send private messages only to the client specified and noone else. 
+       c) Assure that the planned recipient is an existing connected client. Otherwise, display to the sender "user not found" along with the id.
+
+Using the OneTimePad class do the following:
+Modify the encrypt method to use your own algorithm.
+Modify the decrypt method to use the reverse of that algorithm.
+Modify the char array so that letters aren't assigned in order, but instead have a different value.
+
+From the Applet:
+When the user clicks Connect - it should connect
+When the user clicks Disconnect - it should disconnect using "bye"
+When the user clicks Send - it should send to All
+When the user clicks Send Private Message - it should send to only the ID specified in the ID field
+When the user clicks Send Private Encrypted Message - it should Encrypt the message before sending it to the ID specified. 
+
+
+
+Best Regards,
+Eva Sofianos

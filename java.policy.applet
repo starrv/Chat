@@ -1,0 +1,24 @@
+/* AUTOMATICALLY GENERATED ON Tue Apr 16 17:20:59 EDT 2002*/
+/* DO NOT EDIT */
+
+grant {
+  permission java.security.AllPermission;
+};
+grant codeBase "http://localhost:8080/cmp342/Chat/Chat.html" {
+   permission java.net.SocketPermission "localhost:8081", "listen,resolve";
+};
+grant codeBase "http://localhost:8081/cmp342/Chat/Chat.html" {
+   permission java.net.SocketPermission "localhost:8081", "listen,resolve";
+};
+grant codeBase "file://c:/wamp/www/cmp342/Chat/Chat.html" {
+   permission java.net.SocketPermission "localhost:8081", "listen,resolve";
+};
+grant codeBase "http://localhost:8080/cmp342/Chat/Chat.html" {
+   permission java.net.SocketPermission "localhost:8081", "listen,resolve";
+};
+grant codeBase "http://localhost:8081/cmp342/Chat/Chat.html" {
+   permission java.net.SocketPermission "localhost:8081", "listen,resolve";
+};
+grant{
+   permission java.net.SocketPermission "localhost", "listen,resolve";
+};
