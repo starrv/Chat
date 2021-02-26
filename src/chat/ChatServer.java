@@ -19,6 +19,7 @@ public class ChatServer implements Runnable{
 	private int clientCount = 0;
 	private SocketPermission p2;
 	private int serverPort;
+	private String serverHost="chat-app-v.herokuapp.com";
 	
 	
 	public ChatServer(int port)
@@ -30,13 +31,12 @@ public class ChatServer implements Runnable{
 	private int createServer(int port)
 	{
 		Functions.printMessage("Trying with port "+port);
-		String host="localhost";
 		try
 		{
-			Functions.printMessage("Obtaining socket permission for "+host+":"+port+" please wait...");
-			p2 = new SocketPermission(host+":"+port,  "listen, accept, connect, resolve");
-			Functions.printMessage(host+":"+port+" can do these actions: "+p2.getActions());
+			Functions.printMessage("Obtaining socket permission for "+serverHost+":"+port+" please wait...");
+			p2 = new SocketPermission(serverHost+":"+port,  "listen, accept, connect, resolve");
 			Functions.printMessage("Binding to port " + port + " please wait...");
+			Functions.printMessage(serverHost+":"+port+" can do these actions: "+p2.getActions());
 			server = new ServerSocket(port);
 			start();
 		}
@@ -51,6 +51,12 @@ public class ChatServer implements Runnable{
 	{
 		return serverPort;
 	}
+	
+	public String getServerHost()
+	{
+		return serverHost;
+	}
+	
 	//same as previous versions (i.e. same as version 3 and 2)	
 	public void start(){
 		if(thread==null){

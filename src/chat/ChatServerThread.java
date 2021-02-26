@@ -37,7 +37,8 @@ public class ChatServerThread extends Thread {
 				+ " socket: " + socket + " ID: " + ID);
 	}
 
-	public void send(String msg) {
+	public void send(String msg) 
+	{
 		try 
 		{
 			streamOut.writeUTF(msg);

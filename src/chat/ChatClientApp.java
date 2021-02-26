@@ -34,9 +34,8 @@ Runnable{
 			private JButton    sendPrivateEncrypted   = new JButton("send encrypted and private");
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
-			private final int port=80;
-			private String    serverName = "localhost";//will get from browser
-			//will get from browser
+			
+			private final int port=50000;
 		
 			private JPanel processPanel = new JPanel();
 			private boolean done = true;
@@ -44,7 +43,7 @@ Runnable{
 			private ChatServer server;
 			private JLabel idLabel=new JLabel("ID to send private:",SwingConstants.CENTER);
 			private JTextField id=new JTextField();
-			JScrollPane inputScrollPane, idScrollPane, outputScrollPane;
+			private JScrollPane inputScrollPane, idScrollPane, outputScrollPane;
 	   
 	   public ChatClientApp()
 	   {
@@ -64,7 +63,7 @@ Runnable{
 		   server.start();
 		
 		   display.setEditable(false);//set editable to false so users can't type there
-		   display.setFont(new Font("Serif", Font.PLAIN, 14));
+		   display.setFont(new Font("Sans-Serif", Font.PLAIN, 14));
 		   display.setBackground(color2);
 		   display.setBorder(BorderFactory.createLineBorder(Color.black));
 		   display.addKeyListener(this);
@@ -175,7 +174,7 @@ Runnable{
 			disconnect();
 		}
 		else if(e.getSource()==connect){
-			connect(serverName, server.getServerPort());
+			connect("localhost", server.getServerPort());
 		}
 		else if(e.getSource()==send)
 		{
@@ -193,9 +192,10 @@ Runnable{
 	
 	public void connect(String serverName, int serverPort){		
 		done=false;
-		displayOutput("call to connect was made, waiting to connect...");
+		displayOutput("call to connect was made, waiting to connect to "+serverName+":"+serverPort+"...");
 		//create new socket, open stream, disable connect button, enable send and quit button
-		try{
+		try
+		{
 			socket=new Socket(serverName, serverPort);
 			//displayOutput("Socket closed: "+socket.isClosed());
 			displayOutput("Connected: "+ socket);
