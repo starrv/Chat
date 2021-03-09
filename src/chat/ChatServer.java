@@ -19,7 +19,7 @@ public class ChatServer implements Runnable{
 	private int clientCount = 0;
 	private SocketPermission p2;
 	private int serverPort;
-	private String serverHost="chat-app-v.herokuapp.com";
+	private String serverHost="39a752592dbb5693f8b7e25c.getstatica.com";
 	
 	
 	public ChatServer(int port)
@@ -80,15 +80,10 @@ public class ChatServer implements Runnable{
 				Functions.printMessage("Waiting for a client...");
 				addClient(server.accept());
 			}
-			catch(IOException ioe)
-			{
-				Functions.printMessage("error accepting the client "+ioe.getMessage());
-			}catch(NullPointerException e)
+			catch(Exception e)
 			{
 				Functions.printMessage("error accepting the client "+e.getMessage());
-				break;
 			}
-			
 		}
 	}
 	

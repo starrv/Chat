@@ -35,7 +35,7 @@ Runnable{
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
 			
-			private final int port=50000;
+			private final int port=9293;
 		
 			private JPanel processPanel = new JPanel();
 			private boolean done = true;
@@ -174,7 +174,7 @@ Runnable{
 			disconnect();
 		}
 		else if(e.getSource()==connect){
-			connect("localhost", server.getServerPort());
+			connect(server.getServerHost(), server.getServerPort());
 		}
 		else if(e.getSource()==send)
 		{
@@ -193,12 +193,14 @@ Runnable{
 	public void connect(String serverName, int serverPort){		
 		done=false;
 		displayOutput("call to connect was made, waiting to connect to "+serverName+":"+serverPort+"...");
+		Functions.printMessage("call to connect was made, waiting to connect to "+serverName+":"+serverPort+"...");
 		//create new socket, open stream, disable connect button, enable send and quit button
 		try
 		{
 			socket=new Socket(serverName, serverPort);
 			//displayOutput("Socket closed: "+socket.isClosed());
 			displayOutput("Connected: "+ socket);
+			Functions.printMessage("Connected: "+ socket);
 			open();
 			id.setEnabled(true);
 			input.setEnabled(true);
@@ -406,6 +408,8 @@ Runnable{
 		{
 			streamOut = new DataOutputStream(socket.getOutputStream());
 			streamIn =  new DataInputStream(socket.getInputStream());
+			Functions.printMessage(streamIn);
+			Functions.printMessage(streamOut);
 		    new Thread(this).start();//background thread to handle the input from the server...need to uncomment
 		}
 		catch(IOException ioe)
@@ -452,9 +456,11 @@ Runnable{
 	public void run() 
 	{
 		// TODO Auto-generated method stub
+		Functions.printMessage("starting..");
 		try
 		{
 			Functions.printMessage("Starting chat..");
+			Functions.printMessage("done: "+done);
 			while(!done)
 			{
 				Functions.printMessage("not done");
@@ -464,6 +470,7 @@ Runnable{
 					if(!(socket.isClosed()))
 					{
 						Functions.printMessage("socket not closed");
+						Functions.printMessage("reading...");
 						line = streamIn.readUTF();
 						Functions.printMessage("line:"+line);
 						StringTokenizer tokenizer=new StringTokenizer(line,"~");
