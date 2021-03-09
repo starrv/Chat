@@ -11,7 +11,8 @@ import java.io.*;
  *This means that the server has to receive and send, and the client has to send as well as receive
  *
  */
-public class ChatServer implements Runnable{
+public class ChatServer implements Runnable
+{
 
 	private ChatServerThread clients[] = new ChatServerThread[50];
 	private ServerSocket server = null;
@@ -19,7 +20,7 @@ public class ChatServer implements Runnable{
 	private int clientCount = 0;
 	private SocketPermission p2;
 	private int serverPort;
-	private String serverHost="39a752592dbb5693f8b7e25c.getstatica.com";
+	private String serverHost="localhost";
 	
 	
 	public ChatServer(int port)
