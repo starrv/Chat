@@ -35,7 +35,7 @@ Runnable{
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
 			
-			private final int port=9293;
+			private final int port=443;
 		
 			private JPanel processPanel = new JPanel();
 			private boolean done = true;
