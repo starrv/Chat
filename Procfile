@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* chat.chat
+web: java -jar target/chat.jar
