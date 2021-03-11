@@ -1,1 +1,1 @@
-web: java -jar target/chat.jar
+web: java -jar chat.jar
