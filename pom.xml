@@ -4,16 +4,6 @@
   <artifactId>Chat</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-   <dependency>
-	  <groupId>org.jscience</groupId>
-	  <artifactId>jscience</artifactId>
-	  <version>4.3.1</version>
-   </dependency>
-   <dependency>
-   	<groupId>org.springframework</groupId>
-   	<artifactId>spring-web</artifactId>
-   	<version>5.2.1.RELEASE</version>
-   </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
