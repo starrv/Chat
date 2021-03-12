@@ -163,7 +163,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 	   }
 	   
 	   
-	@Override
+	
 	public void actionPerformed(ActionEvent e) 
 	{
 		// TODO Auto-generated method stub
@@ -447,7 +447,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		}
 	}
 	
-	@Override
+	
 	public void run() 
 	{
 		// TODO Auto-generated method stub
@@ -511,7 +511,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		ids.setText(line);
 	}
 
-	@Override
+
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		/*if(e.getKeyCode()==KeyEvent.VK_ESCAPE);
@@ -525,25 +525,25 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		}*/
 	}
 
-	@Override
+
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void windowActivated(WindowEvent arg0) 
 	{
 		// TODO Auto-generated method stub
 	}
 
-	@Override
+	
 	public void windowClosed(WindowEvent event) 
 	{
 		// TODO Auto-generated method stub
@@ -551,61 +551,61 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		System.exit(0);
 	}
 
-	@Override
+
 	public void windowClosing(WindowEvent event) {
 		// TODO Auto-generated method stub
 		disconnect();
 		System.exit(0);
 	}
 
-	@Override
+	
 	public void windowDeactivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void windowDeiconified(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void windowIconified(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 	}
 
-	@Override
+	
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
