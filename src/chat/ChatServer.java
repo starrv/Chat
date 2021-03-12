@@ -20,7 +20,7 @@ public class ChatServer implements Runnable
 	private int clientCount = 0;
 	private SocketPermission p2;
 	private int serverPort;
-	private String serverHost="https://0c5739d547a8f032209a8d37.getstatica.com";
+	private String serverHost="localhost";
 	
 	
 	public ChatServer(int port)

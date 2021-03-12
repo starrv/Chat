@@ -15,12 +15,9 @@ import javax.swing.text.DefaultCaret;
  *
  */
 
-public class ChatClientApp extends JFrame implements ActionListener, MouseListener, KeyListener, WindowListener,
-Runnable{
+public class ChatClientApp extends JFrame implements ActionListener, MouseListener, KeyListener, WindowListener, Runnable
+{
 	
-	   /**
-	 * 
-	 */
 			private static final long serialVersionUID = 1L;
 			private Socket socket              = null;
 			private DataInputStream  streamIn   = null;
@@ -35,7 +32,7 @@ Runnable{
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
 			
-			private final int port=443;
+			private final int port=9293;
 		
 			private JPanel processPanel = new JPanel();
 			private boolean done = true;
@@ -408,8 +405,6 @@ Runnable{
 		{
 			streamOut = new DataOutputStream(socket.getOutputStream());
 			streamIn =  new DataInputStream(socket.getInputStream());
-			Functions.printMessage(streamIn);
-			Functions.printMessage(streamOut);
 		    new Thread(this).start();//background thread to handle the input from the server...need to uncomment
 		}
 		catch(IOException ioe)
@@ -456,21 +451,14 @@ Runnable{
 	public void run() 
 	{
 		// TODO Auto-generated method stub
-		Functions.printMessage("starting..");
 		try
 		{
-			Functions.printMessage("Starting chat..");
-			Functions.printMessage("done: "+done);
 			while(!done)
 			{
-				Functions.printMessage("not done");
 				if(streamIn!=null)
 				{
-					Functions.printMessage("stream in not null");
 					if(!(socket.isClosed()))
 					{
-						Functions.printMessage("socket not closed");
-						Functions.printMessage("reading...");
 						line = streamIn.readUTF();
 						Functions.printMessage("line:"+line);
 						StringTokenizer tokenizer=new StringTokenizer(line,"~");
@@ -481,7 +469,6 @@ Runnable{
 								line=tokenizer.nextToken();
 								displayIDs(line);
 								displayOutput(line);
-								Functions.printMessage("ids:"+line);
 							}
 							else
 							{
@@ -490,7 +477,6 @@ Runnable{
 								{
 									line=tokenizer.nextToken();
 									setTitle(line);
-									Functions.printMessage("id:"+line);
 								}
 							}
 						}
@@ -510,7 +496,6 @@ Runnable{
 					Functions.printMessage("Stream is null");
 				}
 			}
-			Functions.printMessage("Done!!");
 		}
 		catch(IOException ioe)
 		{

@@ -50,11 +50,11 @@ public class OneTimePad {
 	//	OneTimePad otp = new OneTimePad();
 	//	Functions.printMessage("The Key:"+ otp.generateKey("HELLO"));
 		OneTimePad otpS = new OneTimePad("Hola que tal!343.$4*5=$20 and 5+2=7!!??");
-		Functions.printMessage("Plain message is "+otpS.plainMessage);
-		Functions.printMessage("Current key is "+otpS.currentKey);
-		Functions.printMessage("Encrypted message is "+otpS.encryptedMessage);
-		Functions.printMessage("Decrypted message is  "+otpS.decrypt(otpS.encryptedMessage));
-		Functions.printMessage("Result is "+mod(4,45));
+//		Functions.printMessage("Plain message is "+otpS.plainMessage);
+//		Functions.printMessage("Current key is "+otpS.currentKey);
+//		Functions.printMessage("Encrypted message is "+otpS.encryptedMessage);
+//		Functions.printMessage("Decrypted message is  "+otpS.decrypt(otpS.encryptedMessage));
+//		Functions.printMessage("Result is "+mod(4,45));
 	}
 	
 	public String generateKey(String msg){
