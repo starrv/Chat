@@ -35,6 +35,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
 			private JButton send=new JButton("send");
+			private Border border=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1, true), BorderFactory.createEmptyBorder(5,5,5,5));
 			
 			private final int port=9293;
 	
@@ -50,7 +51,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   setTitle("Chat");
 		   setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.jpg"))); 
 		   Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		   setSize((int) (size.width*.75),(int) (size.height*.75));
+		   setSize((int) (size.width),(int) (size.height));
 		   setName("Chat");
 		   setTitle("Chat");
 		   setLayout(new BorderLayout());
@@ -62,9 +63,9 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   server.start();
 		   
 		   display.setEditable(false);
-		   display.setBorder(BorderFactory.createLineBorder(Color.black));
 		   display.addKeyListener(this);
 		   display.setFont(new Font("Serif", Font.PLAIN, 14));
+		   display.setMargin(new Insets(10,10,10,10));
 		   DefaultCaret caret = (DefaultCaret) display.getCaret(); // 
 		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); 
 		   display.setLineWrap(true);
@@ -72,24 +73,27 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   outputScrollPane = new JScrollPane(display); 
 		   outputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		   outputScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		   outputScrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray, 1, true), new EmptyBorder(5,5,5,5)));
 		   
 		   ids.setEditable(false);
-		   ids.setBorder(BorderFactory.createLineBorder(Color.black));
 		   ids.addKeyListener(this);
 		   ids.setFont(new Font("Serif", Font.PLAIN, 14));
 		   ids.setBackground(Color.white);
+		   ids.setMargin(new Insets(10,10,10,10));
 		   caret=(DefaultCaret)ids.getCaret();
 		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		   idScrollPane = new JScrollPane(ids); 
+		   idScrollPane.setSize(this.getWidth()/2,this.getHeight()/2);
 		   idScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		   idScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		   idScrollPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray, 1, true), new EmptyBorder(5,5,5,5)));
 		   
 		   JPanel panel1=new JPanel(new GridLayout(1,2));
+		   panel1.setBackground(secondaryColor);
 		   panel1.add(idScrollPane);
 		   panel1.add(outputScrollPane);
 		   
 		   //processPanel.setLayout(new GridLayout(0,2));
-		   Border border=BorderFactory.createLineBorder(Color.black, 1, true);
 		   connect.setBorder(border);
 		   connect.setFont(new Font("Serif", Font.BOLD, 16));
 		   connect.setBackground(primaryColor);
@@ -97,7 +101,6 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   connect.addActionListener(this);
 		   connect.addKeyListener(this);
 		   
-		   border=BorderFactory.createLineBorder(Color.black, 1, true);
 		   quit.setBorder(border);
 		   quit.setFont(new Font("Serif", Font.BOLD, 16));
 		   quit.setBackground(primaryColor);
@@ -110,17 +113,15 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   panel2a.add(connect);
 		   panel2a.add(quit);
 		   
-		   sendToAll.setBorder(BorderFactory.createLineBorder(Color.black));
 		   sendToAll.setEnabled(false);
 		   sendToAll.addActionListener(this);
 		   sendToAll.addKeyListener(this);
 		   
-		   sendPrivateEncrypted.setBorder(BorderFactory.createLineBorder(Color.black));
 		   sendPrivateEncrypted.setEnabled(false);
 		   sendPrivateEncrypted.addActionListener(this);
 		   sendPrivateEncrypted.addKeyListener(this);
 		   
-		   sendPrivate.setForeground(Color.black);
+		   
 		   sendPrivate.setEnabled(false);
 		   sendPrivate.addActionListener(this);
 		   sendPrivate.addKeyListener(this);
@@ -134,7 +135,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   idLabel.setOpaque(true);
 		   idLabel.addKeyListener(this);
 		   
-		   id.setBorder(BorderFactory.createLineBorder(Color.black));
+		   id.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray,1,true),new EmptyBorder(10,10,10,10)));
 		   id.setOpaque(true);
 		   id.setEnabled(false);
 		   id.setColumns(50);
@@ -144,7 +145,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   panel2c.add(idLabel);
 		   panel2c.add(id);
 		   
-		   input.setBorder(BorderFactory.createLineBorder(Color.black));
+		   input.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray,1,true),new EmptyBorder(10,10,10,10)));
 		   input.setLineWrap(true);
 		   input.setEnabled(false);
 		   input.addKeyListener(this);
@@ -159,7 +160,6 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   JPanel panel2d=new JPanel(new FlowLayout(FlowLayout.LEADING));
 		   panel2d.add(input);
 		   
-		   border=BorderFactory.createLineBorder(Color.black, 1, true);
 		   send.setBorder(border);
 		   send.setFont(new Font("Serif", Font.BOLD, 16));
 		   send.setBackground(primaryColor);
@@ -184,7 +184,11 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   panel2.add(panel2e);
 		   panel2.setBackground(secondaryColor);
 		   
+
+		   panel1.setBorder(new EmptyBorder(10,10,10,10));
 		   add(panel1,BorderLayout.CENTER);
+		   
+		   panel2.setBorder(new EmptyBorder(10,10,10,10));
 		   add(panel2,BorderLayout.PAGE_END);
 		   
 		   addKeyListener(this);
