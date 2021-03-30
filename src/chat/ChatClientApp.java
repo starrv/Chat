@@ -6,6 +6,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 
@@ -31,14 +34,14 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			private JRadioButton    sendPrivateEncrypted   = new JRadioButton("send encrypted and private");
 			private JButton   connect = new JButton("connect");
 			private JButton    quit    = new JButton("bye");
+			private JButton send=new JButton("send");
 			
 			private final int port=9293;
-		
-			private JPanel processPanel = new JPanel(new GridLayout(1,10));
+	
 			private boolean done = true;
 			private String line = "";
 			private ChatServer server;
-			private JLabel idLabel=new JLabel("ID to send private:",SwingConstants.CENTER);
+			private JLabel idLabel=new JLabel("ID to send private:");
 			private JTextField id=new JTextField();
 			private JScrollPane inputScrollPane, idScrollPane, outputScrollPane;
 	   
@@ -46,25 +49,22 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 	   {
 		   setTitle("Chat");
 		   setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.jpg"))); 
-		   Color color = new Color(199,135, 113);
-		   Color color2=new Color(227,188,175);
-		   Color color3=new Color(247,227,220);
 		   Dimension size=java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		   setSize(size.width/2,size.height/2);
+		   setSize((int) (size.width*.75),(int) (size.height*.75));
 		   setName("Chat");
 		   setTitle("Chat");
-		   JPanel panel=new JPanel(new BorderLayout());
 		   setLayout(new BorderLayout());
-		   setFont(new Font("Serif", Font.BOLD, 12));
+		   Color primaryColor=new Color(227, 206, 179);
+		   Color secondaryColor=new Color(255, 253, 250);
+		   setBackground(primaryColor);
 		   
 		   server=new ChatServer(port);		
 		   server.start();
 		   
 		   display.setEditable(false);
-		   display.setBackground(color2);
 		   display.setBorder(BorderFactory.createLineBorder(Color.black));
 		   display.addKeyListener(this);
-		   display.setSize(200, 200);
+		   display.setFont(new Font("Serif", Font.PLAIN, 14));
 		   DefaultCaret caret = (DefaultCaret) display.getCaret(); // 
 		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); 
 		   display.setLineWrap(true);
@@ -72,80 +72,120 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   outputScrollPane = new JScrollPane(display); 
 		   outputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		   outputScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		   panel.add(outputScrollPane,BorderLayout.CENTER);
 		   
 		   ids.setEditable(false);
 		   ids.setBorder(BorderFactory.createLineBorder(Color.black));
 		   ids.addKeyListener(this);
+		   ids.setFont(new Font("Serif", Font.PLAIN, 14));
+		   ids.setBackground(Color.white);
 		   caret=(DefaultCaret)ids.getCaret();
 		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		   idScrollPane = new JScrollPane(ids); 
 		   idScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		   idScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		   panel.add(idScrollPane,BorderLayout.LINE_START);
 		   
-		   panel.add(new JPanel(),BorderLayout.LINE_END);
-		   
-		   panel.add(new JPanel(),BorderLayout.PAGE_START);
-		   
-		   sendToAll.setEnabled(false);
-		   sendToAll.addActionListener(this);
-		   sendToAll.addKeyListener(this);
-		   processPanel.add(sendToAll);
-		   
-		   sendPrivateEncrypted.setBackground(color);
-		   sendPrivateEncrypted.setEnabled(false);
-		   sendPrivateEncrypted.addActionListener(this);
-		   sendPrivateEncrypted.addKeyListener(this);
-		   processPanel.add(sendPrivateEncrypted);
-		   
-		   sendPrivate.setEnabled(false);
-		   sendPrivate.addActionListener(this);
-		   sendPrivate.addKeyListener(this);
-		   sendPrivate.setBackground(color);
-		   processPanel.add(sendPrivate);
-		   
-		   idLabel.setAlignmentY(RIGHT_ALIGNMENT);
-		   id.setBorder(BorderFactory.createLineBorder(Color.black));
-		   id.setOpaque(true);
-		   id.setBackground(color3);
-		   id.setEnabled(false);
-		   idLabel.setOpaque(true);
-		   idLabel.addKeyListener(this);
-		   processPanel.add(idLabel);
-		   
-		   id.addKeyListener(this);
-		   processPanel.add(id);
+		   JPanel panel1=new JPanel(new GridLayout(1,2));
+		   panel1.add(idScrollPane);
+		   panel1.add(outputScrollPane);
 		   
 		   //processPanel.setLayout(new GridLayout(0,2));
-		   connect.setBackground(color);
-		   connect.setBorder(BorderFactory.createLineBorder(Color.black));
+		   Border border=BorderFactory.createLineBorder(Color.black, 1, true);
+		   connect.setBorder(border);
+		   connect.setFont(new Font("Serif", Font.BOLD, 16));
+		   connect.setBackground(primaryColor);
+		   connect.setOpaque(true);
 		   connect.addActionListener(this);
 		   connect.addKeyListener(this);
-		   processPanel.add(connect);
 		   
-		   quit.setBackground(color);
-		   quit.setBorder(BorderFactory.createLineBorder(Color.black));
+		   border=BorderFactory.createLineBorder(Color.black, 1, true);
+		   quit.setBorder(border);
+		   quit.setFont(new Font("Serif", Font.BOLD, 16));
+		   quit.setBackground(primaryColor);
+		   quit.setOpaque(true);
 		   quit.addActionListener(this);
 		   quit.setEnabled(false);
 		   quit.addKeyListener(this);
-		   processPanel.add(quit);	
 		   
-		   input.setBackground(color3);
+		   JPanel panel2a=new JPanel(new FlowLayout(FlowLayout.LEADING));
+		   panel2a.add(connect);
+		   panel2a.add(quit);
+		   
+		   sendToAll.setBorder(BorderFactory.createLineBorder(Color.black));
+		   sendToAll.setEnabled(false);
+		   sendToAll.addActionListener(this);
+		   sendToAll.addKeyListener(this);
+		   
+		   sendPrivateEncrypted.setBorder(BorderFactory.createLineBorder(Color.black));
+		   sendPrivateEncrypted.setEnabled(false);
+		   sendPrivateEncrypted.addActionListener(this);
+		   sendPrivateEncrypted.addKeyListener(this);
+		   
+		   sendPrivate.setForeground(Color.black);
+		   sendPrivate.setEnabled(false);
+		   sendPrivate.addActionListener(this);
+		   sendPrivate.addKeyListener(this);
+		   
+		   JPanel panel2b=new JPanel(new FlowLayout(FlowLayout.LEADING));
+		   panel2b.add(sendToAll);
+		   panel2b.add(sendPrivate);
+		   panel2b.add(sendPrivateEncrypted);
+		   
+		   idLabel.setBackground(secondaryColor);
+		   idLabel.setOpaque(true);
+		   idLabel.addKeyListener(this);
+		   
+		   id.setBorder(BorderFactory.createLineBorder(Color.black));
+		   id.setOpaque(true);
+		   id.setEnabled(false);
+		   id.setColumns(50);
+		   id.addKeyListener(this);
+		   
+		   JPanel panel2c=new JPanel(new FlowLayout(FlowLayout.LEADING));
+		   panel2c.add(idLabel);
+		   panel2c.add(id);
+		   
 		   input.setBorder(BorderFactory.createLineBorder(Color.black));
 		   input.setLineWrap(true);
 		   input.setEnabled(false);
 		   input.addKeyListener(this);
-		   caret=(DefaultCaret)input.getCaret();
-		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		   inputScrollPane=new JScrollPane(input);
-		   inputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		   inputScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		   processPanel.add(inputScrollPane);
+		   input.setRows(3);
+		   input.setColumns(50);
+//		   caret=(DefaultCaret)input.getCaret();
+//		   caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+//		   inputScrollPane=new JScrollPane(input);
+//		   inputScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//		   inputScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		   
-		   panel.add(processPanel,BorderLayout.PAGE_END);
+		   JPanel panel2d=new JPanel(new FlowLayout(FlowLayout.LEADING));
+		   panel2d.add(input);
 		   
-		   add(panel,BorderLayout.CENTER);
+		   border=BorderFactory.createLineBorder(Color.black, 1, true);
+		   send.setBorder(border);
+		   send.setFont(new Font("Serif", Font.BOLD, 16));
+		   send.setBackground(primaryColor);
+		   send.setOpaque(true);
+		   send.addActionListener(this);
+		   send.setEnabled(false);
+		   send.addKeyListener(this);	
+		   
+		   JPanel panel2e=new JPanel(new FlowLayout(FlowLayout.LEADING));
+		   panel2e.add(send);
+		   
+		   JPanel panel2=new JPanel(new GridLayout(6,1));
+		   panel2a.setBackground(secondaryColor);
+		   panel2.add(panel2a);
+		   panel2b.setBackground(secondaryColor);
+		   panel2.add(panel2b);
+		   panel2c.setBackground(secondaryColor);
+		   panel2.add(panel2c);
+		   panel2d.setBackground(secondaryColor);
+		   panel2.add(panel2d);
+		   panel2e.setBackground(secondaryColor);
+		   panel2.add(panel2e);
+		   panel2.setBackground(secondaryColor);
+		   
+		   add(panel1,BorderLayout.CENTER);
+		   add(panel2,BorderLayout.PAGE_END);
 		   
 		   addKeyListener(this);
 		   addMouseListener(this);
