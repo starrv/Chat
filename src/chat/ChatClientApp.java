@@ -44,7 +44,8 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			private ChatServer server;
 			private JLabel idLabel=new JLabel("ID to send private:");
 			private JTextField id=new JTextField();
-			private JScrollPane inputScrollPane, idScrollPane, outputScrollPane;
+			private JScrollPane idScrollPane, outputScrollPane;
+			private String sendOption="send to all";
 	   
 	   public ChatClientApp()
 	   {
@@ -116,15 +117,22 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   sendToAll.setEnabled(false);
 		   sendToAll.addActionListener(this);
 		   sendToAll.addKeyListener(this);
+		   sendToAll.setFont(new Font("Serif", Font.BOLD, 16));
 		   
 		   sendPrivateEncrypted.setEnabled(false);
 		   sendPrivateEncrypted.addActionListener(this);
 		   sendPrivateEncrypted.addKeyListener(this);
-		   
+		   sendPrivateEncrypted.setFont(new Font("Serif", Font.BOLD, 16));
 		   
 		   sendPrivate.setEnabled(false);
 		   sendPrivate.addActionListener(this);
 		   sendPrivate.addKeyListener(this);
+		   sendPrivate.setFont(new Font("Serif", Font.BOLD, 16));
+		   
+		   ButtonGroup buttonGroup=new ButtonGroup();
+		   buttonGroup.add(sendToAll);
+		   buttonGroup.add(sendPrivate);
+		   buttonGroup.add(sendPrivateEncrypted);
 		   
 		   JPanel panel2b=new JPanel(new FlowLayout(FlowLayout.LEADING));
 		   panel2b.add(sendToAll);
@@ -134,6 +142,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   idLabel.setBackground(secondaryColor);
 		   idLabel.setOpaque(true);
 		   idLabel.addKeyListener(this);
+		   idLabel.setFont(new Font("Serif", Font.BOLD, 16));
 		   
 		   id.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.gray,1,true),new EmptyBorder(10,10,10,10)));
 		   id.setOpaque(true);
@@ -184,7 +193,13 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   panel2.add(panel2e);
 		   panel2.setBackground(secondaryColor);
 		   
-
+		   JPanel panel3=new JPanel();
+		   JLabel label=new JLabel();
+		   label.setText("Let's Chat");
+		   label.setFont(new Font("Serif", Font.PLAIN, 30));
+		   panel3.add(label);
+		   add(panel3,BorderLayout.PAGE_START);
+		   
 		   panel1.setBorder(new EmptyBorder(10,10,10,10));
 		   add(panel1,BorderLayout.CENTER);
 		   
@@ -208,17 +223,27 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		else if(e.getSource()==connect){
 			connect(server.getServerHost(), server.getServerPort());
 		}
+		else if(e.getSource()==send)
+		{
+			System.out.println("send");
+			send();
+		}
 		else if(e.getSource()==sendToAll)
 		{
-			send();
+			//sendToAll();
+			System.out.println("send to all");
+			sendOption="send to all";
 		}
 		else if(e.getSource()==sendPrivate)
 		{
-			sendPrivate();
+			//sendPrivate();
+			sendOption="send private";
+			
 		}
 		else if(e.getSource()==sendPrivateEncrypted)
 		{
-			sendPrivateEncrypted();
+			//sendPrivateEncrypted();
+			sendOption="send private and encrypted";
 		}
 	}
 	
@@ -239,6 +264,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			sendToAll.setEnabled(true);
 			sendPrivate.setEnabled(true);	
 			sendPrivateEncrypted.setEnabled(true);	
+			send.setEnabled(true);
 			quit.setEnabled(true);
 			connect.setEnabled(false);
 			streamOut.writeUTF("hello");
@@ -294,9 +320,25 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		sendToAll.setEnabled(false);
 		sendPrivate.setEnabled(false);
 		sendPrivateEncrypted.setEnabled(false);
+		send.setEnabled(false);
 	}
 	
 	private void send()
+	{
+		switch(sendOption)
+		{
+			case "send private":
+				sendPrivate();
+				break;
+			case "send private and encrypted":
+				sendPrivateEncrypted();
+				break;
+			default:
+				sendToAll();
+		}
+	}
+	
+	private void sendToAll()
 	{
 		if(line.equalsIgnoreCase(""))
 		{
