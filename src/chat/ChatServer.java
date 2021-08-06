@@ -1,6 +1,8 @@
 package chat;
 
 import java.net.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 
 /**
@@ -11,7 +13,7 @@ import java.io.*;
  *This means that the server has to receive and send, and the client has to send as well as receive
  *
  */
-public class ChatServer implements Runnable
+public class ChatServer implements Runnable, KeyListener
 {
 
 	private ChatServerThread clients[] = new ChatServerThread[50];
@@ -268,6 +270,31 @@ public class ChatServer implements Runnable
 	public ChatServerThread[] getClients()
 	{
 		return clients;
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("key pressed");
+		if(e.getKeyCode()==KeyEvent.VK_Q)
+		{
+			stop();
+		}
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

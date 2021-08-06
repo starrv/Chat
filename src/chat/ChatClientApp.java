@@ -37,7 +37,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			private JButton send=new JButton("send");
 			private Border border=BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1, true), BorderFactory.createEmptyBorder(5,5,5,5));
 			
-			private final int port=9293;
+			private int port;
 	
 			private boolean done = true;
 			private String line = "";
@@ -47,7 +47,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			private JScrollPane idScrollPane, outputScrollPane;
 			private String sendOption="send to all";
 	   
-	   public ChatClientApp()
+	   public ChatClientApp(int port)
 	   {
 		   setTitle("Chat");
 		   setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.jpg"))); 
@@ -60,6 +60,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 		   Color secondaryColor=new Color(255, 253, 250);
 		   setBackground(primaryColor);
 		   
+		   this.port=port;
 		   server=new ChatServer(port);		
 		   server.start();
 		   
@@ -221,7 +222,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			disconnect();
 		}
 		else if(e.getSource()==connect){
-			connect(server.getServerHost(), server.getServerPort());
+			connect("lets-chat-vale.herokuapp.com", server.getServerPort());
 		}
 		else if(e.getSource()==send)
 		{
