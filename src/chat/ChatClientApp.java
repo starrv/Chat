@@ -222,7 +222,7 @@ public class ChatClientApp extends JFrame implements ActionListener, MouseListen
 			disconnect();
 		}
 		else if(e.getSource()==connect){
-			connect("lets-chat-vale.herokuapp.com", server.getServerPort());
+			connect(server.getServerHost(), server.getServerPort());
 		}
 		else if(e.getSource()==send)
 		{
