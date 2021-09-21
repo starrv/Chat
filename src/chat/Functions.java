@@ -1,26 +1,59 @@
 package chat;
 
+import java.io.BufferedReader;
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 
 public class Functions 
 {
-	static void printMessage(Object obj)
+	final static PrintStream console = System.out;
+	
+	static void printMessage(String message)
 	{
 		try
 		{
-			PrintStream o = new PrintStream(new File("./Chat.txt"));
-			PrintStream console = System.out;
+			File file=new File("./log.txt");
+			Path path=null;
+			if(!file.exists())
+			{
+				Files.createFile(file.toPath());
+				path=file.toPath();
+			}
+			else
+			{
+				path=FileSystems.getDefault().getPath("./log.txt");
+			}
+			String fileContents="";
+			Charset charset = Charset.forName("US-ASCII");
+			try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+			    String line = null;
+			    while ((line = reader.readLine()) != null) {
+			        fileContents+=line;
+			    }
+			} catch (IOException x) {
+			    System.err.format("IOException: %s%n", x);
+			}
+			System.out.println(fileContents);
+			PrintStream o = new PrintStream(file);
 			System.setOut(o); 
-		    System.out.println(obj);
-		    System.setOut(console);
-		    System.out.println(obj);
+			System.out.println(fileContents+message);
+			
 		} 
-		catch (FileNotFoundException e)
+		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
-			System.out.println(obj);
+			System.setOut(console);
+		    System.out.println(message);
+			e.printStackTrace();
 		} 
 	}
 
